@@ -1,4 +1,4 @@
-package net.test;
+package net.test.net.test.data;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +12,6 @@ public class Session {
     private long unixTimeStamp;
     private String url;
     private long sessionTimeDuration;
-    private String sessionDate;
     private int numberOfVisits;
 
     public Session(long unixTimeStamp,String url,long sessionTimeDuration){
@@ -25,16 +24,8 @@ public class Session {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public long getUnixTimeStamp() {
         return unixTimeStamp;
-    }
-
-    public void setUnixTimeStamp(long unixTimeStamp) {
-        this.unixTimeStamp = unixTimeStamp;
     }
 
     public long getSessionTimeDuration() {
@@ -53,19 +44,12 @@ public class Session {
         return formattedDate.toUpperCase();
     }
 
-    public int getNumberOfVisits() {
-        return numberOfVisits;
-    }
-
-    public void setNumberOfVisits(int numberOfVisits) {
-        this.numberOfVisits = numberOfVisits;
-    }
 
     public void increaseVisiting(){
         numberOfVisits++;
     }
 
-    public long getAveragesessionTimeDuration(){
+    public long getAverageSessionTimeDuration(){
         return sessionTimeDuration / numberOfVisits;
     }
 

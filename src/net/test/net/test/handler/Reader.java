@@ -1,4 +1,7 @@
-package net.test;
+package net.test.net.test.handler;
+
+import net.test.net.test.data.Session;
+import net.test.net.test.data.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,7 +23,8 @@ public class Reader {
     public List<User> getUsersList(){
         return usersList;
     }
-    public Map<String,List<Session>> getDataList(String pathCSVFile) {
+
+    public List<User> readFile(String pathCSVFile) {
         final String DELIMITER = ",";
         try (BufferedReader fileReader = new BufferedReader(new FileReader(pathCSVFile))) {
             String line;
@@ -41,20 +45,15 @@ public class Reader {
             List<Session> values = entry.getValue();
             usersList.add(new User(key,values));
         }
-
         for(User user :  usersList){
-            user.wildFunction();
+            user.checkingDuration();
         }
         for(User user :  usersList){
             user.countAverageTimeOnURL();
-            System.out.println(user.getUserName());
-            for(Session session : user.getSessionsList()) {
-                System.out.println(session.toString());
-            }
         }
-        return hashDataList;
+        Collections.sort(usersList);
+        return usersList;
     }
-
     private User createDataObject(String[] tokens) {
         User user = new User(tokens[1]);
         user.addSession(new Session(Long.valueOf(tokens[0]),tokens[2], Integer.valueOf(tokens[3])));

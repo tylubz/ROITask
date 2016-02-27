@@ -1,4 +1,4 @@
-package net.test;
+package net.test.net.test.data;
 
 import java.io.File;
 
@@ -14,10 +14,6 @@ public class FileModel {
     }
     public File getFile() {
         return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
     public boolean isProcessed() {

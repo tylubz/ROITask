@@ -1,11 +1,11 @@
-package net.test;
+package net.test.net.test.data;
 
 import java.util.*;
 
 /**
  * Created by Sergei on 23.02.2016.
  */
-public class User {
+public class User implements Comparable{
     private String userName;
     private List<Session> sessionsList;
 
@@ -22,24 +22,12 @@ public class User {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public List<Session> getSessionsList() {
         return sessionsList;
     }
 
-    public void setSessionsList(List<Session> sessionsList) {
-        this.sessionsList = sessionsList;
-    }
-
     public void addSession(Session session){
         sessionsList.add(session);
-    }
-
-    public void addSession(List<Session> sessions){
-        sessions.addAll(sessions);
     }
 
     public void countTimeOnURL() {
@@ -52,6 +40,7 @@ public class User {
                 if((outerChain.getUrl().hashCode()==innerChain.getUrl().hashCode()) && (!outerChain.equals(innerChain)) &&
                         (outerChain.convertUnixTimestampToReadableDate(outerChain.getUnixTimeStamp()).equals(innerChain.convertUnixTimestampToReadableDate(innerChain.getUnixTimeStamp())))){
                     innerChain.setSessionTimeDuration(outerChain.getSessionTimeDuration()+innerChain.getSessionTimeDuration());
+                    innerChain.increaseVisiting();
                     outer.remove();
                     break;
                 }
@@ -63,20 +52,19 @@ public class User {
     public void countAverageTimeOnURL(){
         countTimeOnURL();
         for(Session ssn : sessionsList){
-            ssn.setSessionTimeDuration(ssn.getAveragesessionTimeDuration());
+            ssn.setSessionTimeDuration(ssn.getAverageSessionTimeDuration());
         }
 
     }
 
-
-    public void wildFunction(){
+    public void checkingDuration(){
         List<Session> lst = new ArrayList<>();
         for(Session data : sessionsList) {
-           checkingDuration(data,lst);
+           listOfExceedSessionTimeDuration(data,lst);
         }
         sessionsList.addAll(lst);
     }
-    public List<Session> checkingDuration(Session data,List<Session> lst) {
+    private List<Session> listOfExceedSessionTimeDuration(Session data, List<Session> lst) {
         String a = data.convertUnixTimestampToReadableDate(data.getUnixTimeStamp());
         String b = data.convertUnixTimestampToReadableDate(data.getUnixTimeStamp() + data.getSessionTimeDuration());
         if (!a.equals(b)) {
@@ -85,7 +73,7 @@ public class User {
             data.setSessionTimeDuration(currentSessionTime);
             Session inst = new Session(data.getUnixTimeStamp()+currentSessionTime,data.getUrl(),oldSessionTime-currentSessionTime);
             lst.add(inst);
-            checkingDuration(inst,lst);
+            listOfExceedSessionTimeDuration(inst,lst);
         }
         return lst;
     }
@@ -107,5 +95,11 @@ public class User {
         hash = hash*17 + userName.hashCode();
         hash = hash*17 + sessionsList.hashCode();
         return hash;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        User user = (User) o;
+        return (this.userName).compareTo(user.userName);
     }
 }
