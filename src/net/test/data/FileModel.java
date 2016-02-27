@@ -1,4 +1,4 @@
-package net.test.net.test.data;
+package net.test.data;
 
 import java.io.File;
 

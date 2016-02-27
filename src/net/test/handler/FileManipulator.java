@@ -1,6 +1,6 @@
-package net.test.net.test.handler;
+package net.test.handler;
 
-import net.test.net.test.data.FileModel;
+import net.test.data.FileModel;
 
 /**
  * Created by Sergei on 25.02.2016.

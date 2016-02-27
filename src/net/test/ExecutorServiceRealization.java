@@ -1,7 +1,7 @@
 package net.test;
 
-import net.test.net.test.data.FileModel;
-import net.test.net.test.handler.FileManipulator;
+import net.test.data.FileModel;
+import net.test.handler.FileManipulator;
 
 import java.io.File;
 import java.io.IOException;

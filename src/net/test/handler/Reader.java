@@ -1,7 +1,7 @@
-package net.test.net.test.handler;
+package net.test.handler;
 
-import net.test.net.test.data.Session;
-import net.test.net.test.data.User;
+import net.test.data.Session;
+import net.test.data.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
